@@ -49,6 +49,10 @@ let grandTotal = 0;
 
     const filesArray = fs.readdirSync(`./${dir}`);
     let tokensArray = []
+    let obj;
+    let tokensSummed;
+    let objArray = []
+
     for (let i = 0; i < filesArray.length; i++) {
         const file = fs.readFileSync(`./${dir}/${filesArray[i]}`, "utf8")
         let regex = /([A-Z]{2,})+/g
@@ -59,19 +63,35 @@ let grandTotal = 0;
         for (item of match) {            
             for (line of splitFile) {
                 if (line.includes(item[0])) {
-                    let regex2 = /\d*.\d{2}$/g
-                    let obj;
-                    obj = {token: item[0], value:line.match(regex2[0])}
-                    console.log(obj)
+                    let regex2 = /\d*.\d{2}$/g;
+                    let value = line.match(regex2)
+                    obj = {token: item[0], value:Number(value[0])}
+                    objArray.push(obj)
                 }
             }
-        //     // console.log(item)
-            // if (!(item[0] in tokensArray)) {
-            //     tokensArray.push(item[0])
-            // }
+            // console.log(item)
+            if (!(item[0] in tokensArray)) {
+                tokensArray.push(item[0])
+            }
         }
+
     }
+
+
+    console.log(objArray)
+    // for (let i = 0; i < objArray.length; i++) {
+
+
+    //     // if (!(objArray[i].token in tokensArray)) {
+    //     //     tokensArray.push(objArray[i].token)
+    //     // }
+    // }
+
     // console.log(tokensArray)
+
+    
+
+
     // let timeNow = Date.now()
     // fs.writeFileSync(`./totalHistory/${timeNow}`, grandTotal.toString())
 
