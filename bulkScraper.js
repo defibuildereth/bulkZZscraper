@@ -56,11 +56,13 @@ let grandTotal = 0;
         let splitFile = file.split('\n')
 
         const match = file.matchAll(regex)
-        for (item of match) {
-            
+        for (item of match) {            
             for (line of splitFile) {
                 if (line.includes(item[0])) {
-                    console.log(line)
+                    let regex2 = /\d*.\d{2}$/g
+                    let obj;
+                    obj = {token: item[0], value:line.match(regex2[0])}
+                    console.log(obj)
                 }
             }
         //     // console.log(item)
