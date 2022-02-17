@@ -12,6 +12,14 @@ let grandTotal = 0;
 
 
 (async () => {
+    let now = Date.now()
+
+    var dir = `./${now}`;
+
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+    }
+
     for (let i = 0; i < addresses.length; i++) {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
@@ -30,15 +38,32 @@ let grandTotal = 0;
         let parsedNum = total.substring(1)
         grandTotal += Number(parsedNum)
 
-        let now = Date.now()
 
         let data2 = extractedText
-        fs.writeFileSync(`./accountsHistory/${addresses[i]}_${now}.txt`, data2);
+
+        fs.writeFileSync(`./${dir}/${addresses[i]}.txt`, data2);
         await browser.close();
 
 
     }
-    let timeNow = Date.now()
-    fs.writeFileSync(`./totalHistory/${timeNow}`, grandTotal.toString())
+
+    const filesArray = fs.readdirSync(`./${dir}`);
+    let tokensArray = []
+    for (let i = 0; i < filesArray.length; i++) {
+        const file = fs.readFileSync(`./${dir}/${filesArray[i]}`, "utf8")
+        let regex = /([A-Z]{2,})+/g
+
+        const match = file.matchAll(regex)
+        for (item of match) {
+            if (!(item[0] in tokensArray)) {
+                tokensArray.push(item[0])
+            }
+        }
+    }
+    console.log(tokensArray)
+    // let timeNow = Date.now()
+    // fs.writeFileSync(`./totalHistory/${timeNow}`, grandTotal.toString())
+
+
 
 })();
