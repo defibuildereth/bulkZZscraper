@@ -53,15 +53,23 @@ let grandTotal = 0;
         const file = fs.readFileSync(`./${dir}/${filesArray[i]}`, "utf8")
         let regex = /([A-Z]{2,})+/g
 
+        let splitFile = file.split('\n')
+
         const match = file.matchAll(regex)
         for (item of match) {
-            console.log(item)
-            if (!(item[0] in tokensArray)) {
-                tokensArray.push(item[0])
+            
+            for (line of splitFile) {
+                if (line.includes(item[0])) {
+                    console.log(line)
+                }
             }
+        //     // console.log(item)
+            // if (!(item[0] in tokensArray)) {
+            //     tokensArray.push(item[0])
+            // }
         }
     }
-    console.log(tokensArray)
+    // console.log(tokensArray)
     // let timeNow = Date.now()
     // fs.writeFileSync(`./totalHistory/${timeNow}`, grandTotal.toString())
 
