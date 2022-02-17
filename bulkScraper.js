@@ -55,6 +55,7 @@ let grandTotal = 0;
 
         const match = file.matchAll(regex)
         for (item of match) {
+            console.log(item)
             if (!(item[0] in tokensArray)) {
                 tokensArray.push(item[0])
             }
