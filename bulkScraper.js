@@ -59,8 +59,10 @@ getInfo()
                     if (line.includes(item[0])) {
                         let obj;
                         let regex2 = /\d*.\d{2}$/g;
+                        let regex3 = /(?<=nce:\s)\d*.\d{2}/g
                         let value = line.match(regex2)
-                        obj = { token: item[0], value: Number(value[0]) }
+                        let tokenBalance = line.match(regex3)
+                        obj = { token: item[0], tokenBalance: Number(tokenBalance[0]), value: Number(value[0]) }
                         objArray.push(obj)
                     }
                 }
