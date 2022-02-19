@@ -83,6 +83,7 @@ getInfo()
                     if (objArray.length) {
                         if (uniqueArray[i].token == objArray[0].token) {
                             uniqueArray[i].value += objArray[0].value
+                            uniqueArray[i].tokenBalance += objArray[0].tokenBalance
                             objArray.shift();
                             if (objArray.length > 0) {
                                 uniqueArrayMaker2(objArray, uniqueArray)
